@@ -1,0 +1,16 @@
+{
+  "name": "taiwan-legal-plugin",
+  "owner": {
+    "name": "LawChat OSS"
+  },
+  "plugins": [
+    {
+      "name": "taiwan-legal",
+      "source": "./taiwan-legal",
+      "description": "Access layer for Taiwan legal open data: court judgments (judicial.gov.tw) and the National Regulation Database (law.moj.gov.tw). Bundles the open-source mcp-taiwan-legal-db MCP server. Use when you need to search and retrieve Taiwanese court rulings or statutory text.",
+      "author": {
+        "name": "LawChat OSS"
+      }
+    }
+  ]
+}
