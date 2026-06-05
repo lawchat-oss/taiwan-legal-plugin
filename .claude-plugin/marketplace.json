@@ -1,5 +1,6 @@
 {
   "name": "taiwan-legal-plugin",
+  "description": "Taiwan legal open-data plugins for Claude Code — court judgments and the National Regulation Database, via the open-source mcp-taiwan-legal-db MCP server.",
   "owner": {
     "name": "LawChat OSS"
   },
