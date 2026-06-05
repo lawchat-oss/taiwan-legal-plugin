@@ -23,7 +23,7 @@ Author self-scan against the 10 categories in the QA spec (override/ignore instr
 | Direction | What | Notes |
 |---|---|---|
 | Upstream | `~/.claude/plugins/config/taiwan-legal-plugin/taiwan-legal/CLAUDE.md` | Practice profile written by `cold-start-interview`; read by the other two skills. Skills handle absence by prompting the user to run cold-start. |
-| Upstream | `taiwan-legal-db` MCP server (bundled via `.mcp.json`) | stdio transport; depends on `pip install mcp-taiwan-legal-db` being available on the user's PATH. |
+| Upstream | `taiwan-legal-db` MCP server (bundled via `.mcp.json`) | stdio transport; launched via `uvx mcp-taiwan-legal-db` (auto-fetched from PyPI on first use; Chromium auto-installed on the first browser-backed query). Requires `uv` on PATH. |
 | Downstream | `cold-start-interview` writes profile; no other writes | No skill writes outside `~/.claude/plugins/config/taiwan-legal-plugin/taiwan-legal/`. |
 | Auto-triggers | none | No `hooks/hooks.json`; no agents; no scheduled invocations. |
 | Breakage risk | If MCP server unavailable, all three skills surface a clear error and stop. | No silent fallback. |

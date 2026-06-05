@@ -14,6 +14,13 @@
 
 ## 安裝
 
+**前置**：安裝 [uv](https://docs.astral.sh/uv/)（單一執行檔，跨平台；已安裝可略過）：
+
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh           # macOS / Linux
+powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
+```
+
 在 Claude Code 內：
 
 ```
@@ -21,13 +28,7 @@
 /plugin install taiwan-legal@taiwan-legal-plugin
 ```
 
-安裝後重啟 Claude Code。接著裝底層 MCP server：
-
-```
-pip install mcp-taiwan-legal-db
-```
-
-> 若該套件尚未發佈至 PyPI，可改用 `pip install git+https://github.com/lawchat-oss/mcp-taiwan-legal-db.git@v1.0.0`。
+安裝後重啟 Claude Code。底層 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) 會在**首次查詢時由 `uvx` 自動從 PyPI 取得並執行**；第一筆需要瀏覽器的裁判書查詢會**自動安裝 Chromium**（約 150MB，僅一次）。無需手動 `pip install` 或 `playwright install`。
 
 第一次使用建議先跑：
 

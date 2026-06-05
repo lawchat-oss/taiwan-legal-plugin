@@ -14,6 +14,13 @@ The underlying MCP server is the open-source [`mcp-taiwan-legal-db`](https://git
 
 ## Install
 
+**Prerequisite:** install [uv](https://docs.astral.sh/uv/) (a single cross-platform binary; skip if you already have it):
+
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh           # macOS / Linux
+powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
+```
+
 In Claude Code:
 
 ```
@@ -21,13 +28,7 @@ In Claude Code:
 /plugin install taiwan-legal@taiwan-legal-plugin
 ```
 
-Restart Claude Code, then install the underlying MCP server:
-
-```
-pip install mcp-taiwan-legal-db
-```
-
-> If the package is not yet on PyPI, use `pip install git+https://github.com/lawchat-oss/mcp-taiwan-legal-db.git@v1.0.0`.
+Restart Claude Code. The underlying [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) is **fetched from PyPI and run automatically by `uvx` on first query**; the first judgment search that needs a browser **auto-installs Chromium** (~150 MB, one time). No manual `pip install` or `playwright install` required.
 
 For first-time use, run:
 
