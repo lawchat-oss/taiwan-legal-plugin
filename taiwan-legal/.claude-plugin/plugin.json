@@ -1,7 +1,7 @@
 {
   "name": "taiwan-legal",
-  "version": "0.2.0",
-  "description": "Access layer for Taiwan legal open data: court judgments (judicial.gov.tw), the National Regulation Database (law.moj.gov.tw), Constitutional Court rulings, ministries' administrative interpretations (函釋) and Supreme Court resolutions / precedents. Bundles the open-source mcp-taiwan-legal-db MCP server. Use when you need to search and retrieve Taiwanese court rulings, statutory text, or interpretive authority.",
+  "version": "0.3.0",
+  "description": "Access layer for Taiwan legal open data: court judgments (judicial.gov.tw), the National Regulation Database (law.moj.gov.tw), Constitutional Court rulings, ministries' administrative interpretations (函釋), Supreme Court resolutions / precedents, administrative appeal and Fair Trade Commission decisions, and legislative reasons (立法理由). Bundles the open-source mcp-taiwan-legal-db MCP server. Use when you need to search and retrieve Taiwanese court rulings, statutory text, or interpretive authority.",
   "author": {
     "name": "LawChat OSS"
   }

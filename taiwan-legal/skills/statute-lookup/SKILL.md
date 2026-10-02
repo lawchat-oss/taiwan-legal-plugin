@@ -6,8 +6,10 @@ description: >
   user asks to retrieve the current text of a Taiwanese law by name
   (e.g., 民法, 公司法, 刑法); to find a specific article within a regulation;
   to search regulations by keyword across the full corpus; or to identify
-  which regulations govern a subject area. Returns structured article-level
-  data pulled live from the official source. This is an access layer —
+  which regulations govern a subject area; or to explain why an article
+  reads as it does (立法理由 for each enactment and amendment, from the
+  Legislative Yuan law system). Returns structured article-level data
+  pulled live from the official source. This is an access layer —
   text comes unmodified from law.moj.gov.tw and reflects whatever version
   that source publishes.
 argument-hint: "[regulation name | article number | keyword]"
@@ -31,6 +33,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - Specific regulation by name (e.g., "民法") → resolve via `get_pcode(law_name=...)`, then `query_regulation(pcode=...)`.
    - Keyword search across all regulations → `search_regulations(keyword=..., exclude_abolished=...)`.
    - Specific article (e.g., "民法 §184") → `query_regulation(law_name=..., article_no=...)`; add `include_history=true` for the article's amendment timeline.
+   - Why an article says what it says / purpose of an amendment (立法理由) → `get_legislative_history(law_name=..., article_no=...)`; it returns each enacted / amended text with the Legislative Yuan's reasons (reasons exist for amendments from 民國 59 on).
 
 4. **Execute the MCP tool call.** Apply profile defaults when the user did not specify (e.g., `exclude_abolished=true` if set in the profile).
 
@@ -80,7 +83,7 @@ Followed by:
 
 - **Provide legal advice or interpretation.** This skill returns the text of statutes. Interpretation, application to facts, and operative legal conclusions are the user's (or their attorney's) responsibility.
 - **Compare statutory regimes across jurisdictions.** Taiwan-only; comparative work is out of scope.
-- **Track legislative history with citations to legislative committee reports.** Basic 修法沿革 is available from the source portal, but deep legislative history research requires the Legislative Yuan database (out of scope for v0.1).
+- **Reconstruct committee debates.** 立法理由 per article comes from the Legislative Yuan law system via `get_legislative_history`; committee minutes and floor debate (立法院公報) are out of scope.
 - **Generate legal documents** (contracts, opinions, briefs). Out of scope.
 - **Operate on inputs that imply privileged communications.** If the user pastes content that looks like attorney work product or client communications, refuse and remind the user this skill only takes public statute queries.
 
@@ -94,7 +97,7 @@ If a user request falls into any of the above, deflect with: "I can show you the
 
 ## Tools used
 
-From the `taiwan-legal-db` MCP server (bundled with this plugin): `query_regulation`, `get_pcode`, `search_regulations`.
+From the `taiwan-legal-db` MCP server (bundled with this plugin): `query_regulation`, `get_pcode`, `search_regulations`, `get_legislative_history`.
 
 ## Versioning
 

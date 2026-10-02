@@ -12,7 +12,7 @@
 - **Administrative interpretations (函釋)** — the official systems of the Ministry of Justice, Labor, Health and Welfare, Finance, Economic Affairs, Interior, the Public Construction Commission, and the Executive Yuan Gazette
 - **Court resolutions and precedents** (legal.judicial.gov.tw) — Supreme Court resolutions, legal Q&A conferences, discontinued precedents, 院字 / 院解字, Grand Chamber rulings
 
-The underlying MCP server is the open-source [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db), which exposes **twelve tools**. v0.2 wraps them in three skills — judgment search, statute lookup, and interpretation lookup.
+The underlying MCP server is the open-source [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db), which exposes **fifteen tools**, wrapped in three skills — judgment search, statute lookup (with legislative reasons), and interpretation lookup (with appeal and Fair Trade Commission decisions).
 
 ## Install
 
@@ -40,14 +40,14 @@ For first-time use, run:
 
 to set defaults (court levels, date window, citation style).
 
-## Skills (v0.2)
+## Skills (v0.3)
 
 | Skill | Purpose |
 |---|---|
 | `/taiwan-legal:cold-start-interview` | One-time setup for research defaults (court, date window, citation style) |
 | `/taiwan-legal:judgment-search` | Search judgments / retrieve a specific case's full text by 字號 or URL |
-| `/taiwan-legal:statute-lookup` | Look up regulations by name, article, or keyword |
-| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (with citation graph), ministries' 函釋, 決議 / 法律問題座談 / 判例 |
+| `/taiwan-legal:statute-lookup` | Look up regulations by name, article, or keyword, and an article's legislative reasons |
+| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (with citation graph), ministries' 函釋, 決議 / 法律問題座談 / 判例, 訴願決定 / FTC decisions |
 
 ## Positioning
 

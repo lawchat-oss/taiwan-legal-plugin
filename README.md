@@ -12,7 +12,7 @@
 - **行政機關函釋** — 法務部、勞動部、衛福部、工程會、財政部、經濟部、內政部等官方系統與行政院公報
 - **判解**（legal.judicial.gov.tw）— 最高法院決議、法律問題座談、停止適用判例、院字／院解字、大法庭
 
-底層由開源 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) MCP server 提供 **12 個工具**，v0.2 以三個 skill 包裝：裁判書搜尋、法規查詢、解釋與函釋查詢。
+底層由開源 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) MCP server 提供 **15 個工具**，以三個 skill 包裝：裁判書搜尋、法規查詢（含立法理由）、解釋與函釋查詢（含訴願決定、公平會處分書）。
 
 ## 安裝
 
@@ -40,14 +40,14 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 
 設定法院層級、日期範圍、引用格式等預設值。
 
-## 提供的 skills（v0.2）
+## 提供的 skills（v0.3）
 
 | Skill | 用途 |
 |---|---|
 | `/taiwan-legal:cold-start-interview` | 一次性設定研究預設值（法院、日期範圍、引用格式） |
 | `/taiwan-legal:judgment-search` | 搜尋裁判書 / 以字號或 URL 取得單一裁判全文 |
-| `/taiwan-legal:statute-lookup` | 法規查詢（依名稱、條號、關鍵字） |
-| `/taiwan-legal:interpretation-lookup` | 大法官解釋／憲判字（含引用關係）、各部會行政函釋、決議／法律問題座談／判例 |
+| `/taiwan-legal:statute-lookup` | 法規查詢（依名稱、條號、關鍵字）與立法理由 |
+| `/taiwan-legal:interpretation-lookup` | 大法官解釋／憲判字（含引用關係）、各部會行政函釋、決議／法律問題座談／判例、訴願決定／公平會處分書 |
 
 ## 定位
 

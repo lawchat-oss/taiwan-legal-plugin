@@ -9,9 +9,11 @@ description: >
   the Public Construction Commission and the Executive Yuan Gazette; and
   Supreme Court resolutions (決議), court legal Q&A conferences
   (法律問題座談), discontinued precedents (停止適用判例) and Judicial Yuan
-  院字 / 院解字 interpretations. Use when the user asks how an agency
-  interprets a provision, whether a 決議 or 判例 on a point exists, or what
-  a 釋字 / 憲判字 held. Returns text pulled live from the official sources
+  院字 / 院解字 interpretations; plus Executive Yuan administrative appeal
+  decisions (訴願決定) and Fair Trade Commission decisions (處分書). Use
+  when the user asks how an agency interprets a provision, whether a 決議
+  or 判例 on a point exists, what a 釋字 / 憲判字 held, or how appeals /
+  the FTC have decided a kind of case. Returns text pulled live from the official sources
   (釋字 / 憲判字 from a bundled copy of the official site).
 argument-hint: "[keyword | agency | 字號 | 釋字 number]"
 ---
@@ -35,6 +37,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - Constitutional topic → `search_interpretations(keyword=...)`; what a ruling cited → `get_citations(case_id=...)`.
    - How an agency reads a provision / 函釋 on a topic → `search_agency_interpretations(keyword=..., agency=...)`. Leave `agency` empty to search every source; use the agency's name (e.g. 勞動部, 財政部, 金管會) when the user names one. A known 字號 → `doc_number=...`. Then `get_agency_interpretation(interpretation_id=...)` for the full text.
    - 決議 / 法律問題座談 / 判例 / 院字・院解字 / 大法庭 → `search_precedents(keyword=..., category=...)`, then `get_precedent(precedent_id=...)`.
+   - Executive Yuan 訴願決定 or Fair Trade Commission 處分書 → `search_administrative_decisions(keyword=..., source="訴願" | "公平會")`, then `get_administrative_decision(decision_id=...)`. Appeal cases filed up to 民國 108 are not listed (the official site does not mask names).
    - Years are ROC years (民國; 2026 = 115).
 
 4. **Execute the MCP tool call(s).** Search without a date range unless the user asks for one.
@@ -95,7 +98,7 @@ If a user request falls into any of the above, deflect with: "I can show you how
 
 ## Tools used
 
-From the `taiwan-legal-db` MCP server (bundled with this plugin): `get_interpretation`, `search_interpretations`, `get_citations`, `search_agency_interpretations`, `get_agency_interpretation`, `search_precedents`, `get_precedent`.
+From the `taiwan-legal-db` MCP server (bundled with this plugin): `get_interpretation`, `search_interpretations`, `get_citations`, `search_agency_interpretations`, `get_agency_interpretation`, `search_precedents`, `get_precedent`, `search_administrative_decisions`, `get_administrative_decision`.
 
 ## Versioning
 
