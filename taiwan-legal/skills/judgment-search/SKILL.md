@@ -28,7 +28,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 2. **Scope check.** Before running the tool, confirm the request falls inside scope (see "What this skill does NOT do" below). If the user is asking for a legal opinion, prediction, or recommendation on a case → do **not** silently produce one; surface the limitation and offer a research-only path instead.
 
 3. **Identify intent from the user's query.**
-   - "search" / keyword / topic → use `search_judgments(keyword, court, date_range, ...)` from the `taiwan-legal-db` MCP server.
+   - "search" / keyword / topic → use `search_judgments(keyword, court, case_type, year_from, year_to, ...)` from the `taiwan-legal-db` MCP server. Years are ROC years (民國; 2026 = 115), so a date window like "last 5 years" becomes `year_from=111, year_to=115`.
    - 字號 given / "read full text" → use `get_judgment(jid=...)`.
    - URL given → use `get_judgment(url=...)`.
    - Ambiguous → ask which the user wants.
@@ -50,7 +50,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 
 **Plan**: search across 最高法院 民事 division, keyword「不當得利返還請求權 消滅時效」, last 5 years.
 
-**Tool call**: `search_judgments(keyword="不當得利返還請求權 消滅時效", court="最高法院", date_range="last_5_years")`
+**Tool call**: `search_judgments(keyword="不當得利返還請求權 消滅時效", court="最高法院", case_type="民事", year_from=111, year_to=115)`
 
 **Expected output shape**:
 ```
