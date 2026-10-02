@@ -30,7 +30,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 3. **Identify intent.**
    - Specific regulation by name (e.g., "民法") → resolve via `get_pcode(law_name=...)`, then `query_regulation(pcode=...)`.
    - Keyword search across all regulations → `search_regulations(keyword=..., exclude_abolished=...)`.
-   - Specific article (e.g., "民法 §184") → `query_regulation(law_name=..., article=...)`.
+   - Specific article (e.g., "民法 §184") → `query_regulation(law_name=..., article_no=...)`; add `include_history=true` for the article's amendment timeline.
 
 4. **Execute the MCP tool call.** Apply profile defaults when the user did not specify (e.g., `exclude_abolished=true` if set in the profile).
 
@@ -51,7 +51,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 
 **Tool calls**:
 1. `get_pcode(law_name="民法")` → `B0000001`
-2. `query_regulation(pcode="B0000001", article="184")`
+2. `query_regulation(pcode="B0000001", article_no="184")`
 
 **Expected output shape**:
 ```
@@ -74,7 +74,7 @@ Followed by:
 
 - Data origin: law.moj.gov.tw (Ministry of Justice national regulation portal). Coverage equals what that portal publishes.
 - The portal reflects the version of each regulation as of its own last update; very recent amendments may take days to appear.
-- Subsidiary rules (函釋, 解釋令) are partially covered by law.moj.gov.tw but not exhaustively; for definitive coverage of subsidiary rules consult the issuing agency directly.
+- Agency interpretations (函釋, 解釋令) are not part of this skill — use `/taiwan-legal:interpretation-lookup`, which queries the issuing agencies' own systems.
 
 ## What this skill does NOT do
 

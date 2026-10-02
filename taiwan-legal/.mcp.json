@@ -3,9 +3,9 @@
     "taiwan-legal-db": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["mcp-taiwan-legal-db"],
+      "args": ["mcp-taiwan-legal-db==1.3.0"],
       "title": "Taiwan Legal Database",
-      "description": "Stdio MCP server exposing eight tools over Taiwan's judicial judgment portal (judgment.judicial.gov.tw), National Regulation Database (law.moj.gov.tw), and Constitutional Court records (cons.judicial.gov.tw). Source: github.com/lawchat-oss/mcp-taiwan-legal-db."
+      "description": "Stdio MCP server exposing twelve read-only tools over Taiwan's judicial judgment portal (judgment.judicial.gov.tw), National Regulation Database (law.moj.gov.tw), Constitutional Court records (cons.judicial.gov.tw), the Judicial Yuan law database (legal.judicial.gov.tw) and ministries' official interpretation systems. Source: github.com/lawchat-oss/mcp-taiwan-legal-db."
     }
   }
 }
