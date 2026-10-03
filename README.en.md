@@ -9,10 +9,10 @@
 - **Judicial Yuan judgment portal** (judgment.judicial.gov.tw) — full-text search, judgment retrieval and appeal history
 - **National Regulation Database** (law.moj.gov.tw) — 11,700+ statutes and regulations, official English translations, amendment and effective dates
 - **Constitutional Court records** (cons.judicial.gov.tw) — 釋字, 憲判字, Justices' opinions, citation graph, case-file filings and the pending docket
-- **Administrative interpretations (函釋)** — 45 official systems (ministries, the DGPA, the Consumer Protection Committee, the Examination Yuan, Taipei and New Taipei City) and the Executive Yuan Gazette, plus TIPO examination guidelines; discontinued letters are flagged where the site marks them
+- **Administrative interpretations (函釋)** — 51 official systems (ministries, the DGPA, the Consumer Protection Committee, the Examination Yuan, Taipei and New Taipei City) and the Executive Yuan Gazette, plus TIPO examination guidelines; discontinued letters are flagged where the site marks them
 - **Court resolutions and precedents** (legal.judicial.gov.tw) — Supreme Court resolutions, legal Q&A conferences, discontinued precedents, 院字 / 院解字, Grand Chamber rulings, curated judgments
-- **Appeal and quasi-judicial decisions** — Executive Yuan, ministry and local appeals; FTC, unfair labour practice, civil-service protection, FSC sanctions, Control Yuan, lawyer discipline
-- **Legislative materials** — legislative reasons and process, Legislative Yuan bills and gazette, draft regulations open for comment
+- **Appeal and quasi-judicial decisions** — Executive Yuan, ministry and local appeals; FTC, unfair labour practice, civil-service protection, FSC sanctions, Control Yuan, lawyer discipline, medical discipline
+- **Legislative materials** — legislative reasons and process, Legislative Yuan bills and gazette, draft regulations and draft laws open for comment
 - **Research materials** — judicial and MOJ statistics, sentencing statistics, Judicial Yuan research reports, the NCL periodical index, open-access law journals
 - **Other legal texts** — local regulations, treaties and agreements, exchange rules
 
@@ -56,7 +56,7 @@ to set defaults (court levels, date window, citation style).
 
 ## Positioning
 
-This is an access layer that brings Taiwan's public legal data into Claude Code via MCP. The data itself is maintained by the Judicial Yuan, the Ministry of Justice and the other issuing agencies under their open-data policies; this plugin **does not modify source content**. For performance and offline availability the underlying MCP server bundles a small local cache of public records (e.g., Constitutional Court reasonings); all cached items were fetched directly from the official portals (cons.judicial.gov.tw, judgment.judicial.gov.tw, law.moj.gov.tw) and each response carries the source URL. Source data is excluded from copyright under Article 9(1)(1) of the ROC Copyright Act (official documents / statutes); the structured packaging is released under CC0 1.0 (see `DATA_LICENSE` in [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db)).
+This is an access layer that brings Taiwan's public legal data into Claude Code via MCP. The data itself is maintained by the Judicial Yuan, the Ministry of Justice and the other issuing agencies under their open-data policies; this plugin **does not modify source content**. For performance and offline availability the underlying MCP server bundles a small local cache of public records (e.g., Constitutional Court reasonings); all cached items were fetched directly from the official portals (cons.judicial.gov.tw, judgment.judicial.gov.tw, law.moj.gov.tw) and each response carries the source URL. Judgments, statutes, interpretations, decisions and other official documents are excluded from copyright under Article 9 of the ROC Copyright Act, and the structured packaging of Constitutional Court data is released under CC0 1.0 (see `DATA_LICENSE` in [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db)); journal articles, research reports and exchange rules are not, so follow each source's terms when quoting them.
 
 ## Design principles
 
@@ -64,9 +64,13 @@ This is an access layer that brings Taiwan's public legal data into Claude Code 
 - **No legal advice.** Every skill closes with a "this is not legal advice" note and routes operational legal decisions back to a licensed attorney.
 - **Data layer vs. access layer.** Data belongs to its publishers. What we build is the tooling and integration.
 
+## Disclaimer
+
+The MCP server this plugin launches is a scraper: each query fetches data live from the official sites, from the user's own machine. Some of those sites disallow crawlers in robots.txt or present JavaScript checks or captchas; the server handles them only for single, user-initiated queries, never scrapes in bulk and keeps no database. You are responsible for following each site's terms and the applicable law (including Taiwan's Copyright Act and Personal Data Protection Act). The tool is unofficial and provided as is; results are not legal advice, so verify against the official source before citing. Full terms are in the `mcp-taiwan-legal-db` [Disclaimer](https://github.com/lawchat-oss/mcp-taiwan-legal-db/blob/main/README.en.md#disclaimer); site operators with concerns can open a [GitHub issue](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) or email opensource@lawchat.com.tw.
+
 ## License
 
-Code in this repository is released under the MIT License. Source data is provided by the original publishers (Judicial Yuan, Ministry of Justice and the other issuing agencies) under their respective open-data policies.
+Code in this repository is released under the MIT License. Source data belongs to its original publishers (Judicial Yuan, Ministry of Justice and the other issuing agencies).
 
 ---
 

@@ -9,8 +9,9 @@ description: >
   which regulations govern a subject area; or to explain why an article
   reads as it does (立法理由 for each enactment and amendment, from the
   Legislative Yuan law system); to get the official English translation;
-  or to track which statutes were recently amended or are pending
-  amendment. Returns structured article-level data
+  to track which statutes were recently amended or are pending
+  amendment; or to look up local regulations, treaties and exchange
+  rules outside the national database. Returns structured article-level data
   pulled live from the official source. This is an access layer —
   text comes unmodified from law.moj.gov.tw and reflects whatever version
   that source publishes.
@@ -82,6 +83,9 @@ Followed by:
 ## Source and limits
 
 - Data origin: law.moj.gov.tw (Ministry of Justice national regulation portal). Coverage equals what that portal publishes.
+- Article text comes back only for the articles requested, up to 50 per call; a law named without an article number returns its chapter outline and article range.
+- Local regulations, treaties and exchange rules come from each issuer's own system (listed in the server's SOURCES.md). TPEx and TAIFEX rules come from a site that forbids republication — for reference only.
+- Legislative materials: lis.ly.gov.tw (立法理由, 立法歷程), ppg.ly.gov.tw (bills, gazette), gazette.nat.gov.tw (draft regulations), join.gov.tw (draft laws).
 - The portal reflects the version of each regulation as of its own last update; very recent amendments may take days to appear.
 - Agency interpretations (函釋, 解釋令) are not part of this skill — use `/taiwan-legal:interpretation-lookup`, which queries the issuing agencies' own systems.
 

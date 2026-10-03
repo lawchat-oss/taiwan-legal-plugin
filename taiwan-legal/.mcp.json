@@ -3,7 +3,7 @@
     "taiwan-legal-db": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "mcp-taiwan-legal-db[captcha]==1.8.0", "mcp-taiwan-legal-db"],
+      "args": ["--from", "mcp-taiwan-legal-db[captcha]==1.8.1", "mcp-taiwan-legal-db"],
       "title": "Taiwan Legal Database",
       "description": "Stdio MCP server exposing twenty-six read-only tools over Taiwan's official legal sources: the judicial judgment portal (judgment.judicial.gov.tw), National Regulation Database (law.moj.gov.tw), Constitutional Court records (cons.judicial.gov.tw), the Judicial Yuan law database (legal.judicial.gov.tw), ministries' and local governments' interpretation, appeal and regulation systems, quasi-judicial bodies, the Legislative Yuan (lis.ly.gov.tw, ppg.ly.gov.tw), judicial and MOJ statistics, and open-access legal scholarship. Source: github.com/lawchat-oss/mcp-taiwan-legal-db."
     }

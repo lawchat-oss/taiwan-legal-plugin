@@ -4,12 +4,13 @@ description: >
   Look up Taiwanese interpretive authority other than judgments and
   statute text: 釋字 / 憲判字 with their citation graph, case files and
   pending docket; administrative interpretations (函釋, 解釋令) and
-  examination guidelines from about thirty official systems; Supreme
+  examination guidelines from more than fifty official systems; Supreme
   Court resolutions (決議), legal Q&A conferences, discontinued
   precedents, 院字 / 院解字 and curated judgments with 裁判要旨; and
   decisions of administrative-appeal and quasi-judicial bodies (訴願,
   FTC, procurement complaints, labour adjudication, civil-service
-  protection, FSC sanctions, Control Yuan, lawyer discipline). Use when
+  protection, FSC sanctions, Control Yuan, lawyer and medical
+  discipline). Use when
   the user asks how an agency interprets a provision, whether a 決議 or
   判例 exists, what a 釋字 / 憲判字 held or which later rulings cited it,
   or how a review body decided a kind of case. Text is pulled live from
@@ -79,7 +80,7 @@ Followed by:
 ## Source and limits
 
 - 釋字 / 憲判字: bundled copy of cons.judicial.gov.tw; rulings issued after the bundle are fetched live with links to their opinion PDFs.
-- 函釋: queried live from each agency's own system (45, listed in the server's SOURCES.md), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette. Some agencies (金管會, 教育部 …) file interpretations among their administrative rules, so results mix in ordinary rules.
+- 函釋: queried live from each agency's own system (more than 50, listed in the server's SOURCES.md), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette. Some agencies (金管會, 教育部 …) file interpretations among their administrative rules, so results mix in ordinary rules.
 - 決議 / 座談 / 判例 / 院字・院解字 / 精選裁判: legal.judicial.gov.tw (FINT); at most the first 500 hits per category.
 - Decisions: each review body's official site; scanned PDFs return only a link.
 
