@@ -44,7 +44,7 @@ For first-time use, run:
 
 to set defaults (court levels, date window, citation style).
 
-## Skills (v0.5)
+## Skills (v0.6)
 
 | Skill | Purpose |
 |---|---|
