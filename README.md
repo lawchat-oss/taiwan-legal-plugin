@@ -44,7 +44,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 
 設定法院層級、日期範圍、引用格式等預設值。
 
-## 提供的 skills（v0.6）
+## 提供的 skills（v0.7）
 
 | Skill | 用途 |
 |---|---|

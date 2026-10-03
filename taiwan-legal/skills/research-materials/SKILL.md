@@ -5,7 +5,7 @@ description: >
   sources: Judicial Yuan research reports (司法研究年報 / 專題研究報告),
   the National Central Library's periodical index (臺灣期刊論文索引) with
   abstracts and authorised full text, government-funded research projects
-  (GRB), open-access law journals (中研院法學期刊, 政大法學評論), official
+  (GRB), open-access law journals (中研院法學期刊, 政大法學評論, 臺大法學論叢), official
   statistics (司法統計年報 / 月報, 法務統計, 犯罪狀況及其分析), and the
   Judicial Yuan's sentencing statistics (事實型量刑資訊系統). Use when the
   user wants scholarship or empirical data on a legal question — e.g. what
@@ -69,7 +69,7 @@ Law professors, legal researchers, judges and their clerks, in-house counsel, at
 
 ## What this skill does NOT do
 
-- **Access paid databases** (月旦, 華藝, 法源, Lawsnote) or bypass captchas.
+- **Access paid databases** (月旦, 華藝, 法源, Lawsnote).
 - **Predict a sentence or outcome.** Statistics describe past cases; applying them to a client's facts is the lawyer's call.
 - **Generate legal documents.** Out of scope.
 - **Operate on inputs that imply privileged communications.** If the user pastes content that looks like attorney work product or client communications, refuse and remind the user this skill only takes public-record queries.
