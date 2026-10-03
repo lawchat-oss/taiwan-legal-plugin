@@ -35,7 +35,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - 釋字 / 憲判字 by number → `get_interpretation(case_id=...)`; add `reasoning_keyword=` or `include_reasoning=true` for the reasoning, `include_opinions=true` for Justices' opinions.
    - Constitutional topic → `search_interpretations(keyword=...)`; what a ruling cited → `get_citations(case_id=...)`; which later 釋字 / 憲判字 cited it → `get_citations(case_id=..., direction="cited_by")`.
    - Case-file materials (聲請書, 答辯書, 鑑定意見, 法庭之友意見書, 言詞辯論筆錄, 爭點題綱) → `get_constitutional_case_file(case_id=...)`, optionally with `keyword=` to find which filings discuss a point; read one with `document_id=`. Cases not yet decided → `search_constitutional_docket(keyword=..., status="pending" | "hearing" | "amicus")`.
-   - How an agency reads a provision / 函釋 on a topic → `search_agency_interpretations(keyword=..., agency=...)`. Leave `agency` empty to search every source; use the agency's name (e.g. 勞動部, 財政部, 金管會, 銓敘部, 地政司, 臺北市) when the user names one. A known 字號 → `doc_number=...`. Then `get_agency_interpretation(interpretation_id=...)` for the full text. Patent / trademark examination guidelines: `agency="智慧局"` with a chapter term such as 專利要件 or 混淆誤認.
+   - How an agency reads a provision / 函釋 on a topic → `search_agency_interpretations(keyword=..., agency=...)`. Leave `agency` empty to search every source; use the agency's name (e.g. 勞動部, 財政部, 金管會, 銓敘部, 人事總處, 消保處, 地政司, 臺北市, 新北市) when the user names one; 外交部, 退輔會, 核安會 and 國發會 rules are searched only when named. A known 字號 → `doc_number=...`. Then `get_agency_interpretation(interpretation_id=...)` for the full text. Patent / trademark examination guidelines: `agency="智慧局"` with a chapter term such as 專利要件 or 混淆誤認.
    - 決議 / 法律問題座談 / 判例 / 院字・院解字 / 大法庭 → `search_precedents(keyword=..., category=...)`, then `get_precedent(precedent_id=...)`.
    - Curated judgments with 裁判要旨 → `search_precedents(keyword=..., category="精選裁判")`; only those a court designated 具參考價值 / 足資討論 → `category="具參考價值裁判"` (items carry `reference_value`).
    - Administrative appeal and quasi-judicial decisions → `search_administrative_decisions(keyword=..., source=...)`, then `get_administrative_decision(decision_id=...)`. Without `source` it searches 行政院訴願, 公平會, 不當勞動行為裁決, 保訓會, and 金管會裁罰. Name the source for 工程會採購申訴審議判斷 (`source="採購申訴"`; no keyword search upstream — use the case number such as 訴1130123 or a year), 監察院 (slow), 律師懲戒 (needs a precise keyword), or a ministry's / local government's 訴願 (e.g. `source="臺北市"`, or `source="訴願"` for all of them). Executive Yuan appeal cases filed up to 民國 108 are not listed (the official site does not mask names).
@@ -43,10 +43,10 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 
 4. **Execute the MCP tool call(s).** Search without a date range unless the user asks for one.
 
-5. **Check status before citing.** Read the editor's notes (`notes` on 函釋, `fields` → 編註 on 決議 / 判例) and report any 停止適用 / 不再援用 / 廢止 status next to the citation. Since the 2019 reform (法院組織法 §57-1): results in the 停止適用判例 category are discontinued — cite them only as historical material; 判例 that were *not* discontinued now carry only the weight of an ordinary Supreme Court decision; 決議 no longer bind and were in part expressly declared 不再援用.
+5. **Check status before citing.** For 函釋, read `status` / `status_note` on every result and full text: `停止適用` means the official site marks it discontinued — report it with the note, never cite it as current law. `部分停止適用` means only part of it was discontinued — read the full text and `status_note` to identify which part, and cite only the part still in force. `適用中` means the site lists it as current (or, for 財政部, it is in the latest 法令彙編). **No `status` means the site does not say** — never describe such a letter as in force; say its status is unmarked and point to the editor's notes. Read the editor's notes too (`notes` on 函釋, `fields` → 編註 on 決議 / 判例) and report any 停止適用 / 不再援用 / 廢止 status next to the citation. Since the 2019 reform (法院組織法 §57-1): results in the 停止適用判例 category are discontinued — cite them only as historical material; 判例 that were *not* discontinued now carry only the weight of an ordinary Supreme Court decision; 決議 no longer bind and were in part expressly declared 不再援用.
 
 6. **Present results.**
-   - Search results: table of date, issuing agency or court, 字號, 要旨 / 主旨, id. Note any source listed with an `error` in `categories` as not searched.
+   - Search results: table of date, issuing agency or court, 字號, 要旨 / 主旨, status (停止適用 / 部分停止適用 / 適用中 / 未標示), id. Note any source listed with an `error` in `categories` as not searched.
    - Full text: quote the operative passage verbatim with 字號, date and source URL. Do not summarize without being asked.
 
 7. **Cite faithfully.** Every cited interpretation must include its 字號 (or 會議次別), date and source URL.
@@ -79,7 +79,7 @@ Followed by:
 ## Source and limits
 
 - 釋字 / 憲判字: bundled copy of cons.judicial.gov.tw; rulings issued after the bundle are fetched live with links to their opinion PDFs.
-- 函釋: queried live from each agency's own system (about 30, listed in the server's SOURCES.md), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette. Some agencies (金管會, 教育部 …) file interpretations among their administrative rules, so results mix in ordinary rules.
+- 函釋: queried live from each agency's own system (45, listed in the server's SOURCES.md), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette. Some agencies (金管會, 教育部 …) file interpretations among their administrative rules, so results mix in ordinary rules.
 - 決議 / 座談 / 判例 / 院字・院解字 / 精選裁判: legal.judicial.gov.tw (FINT); at most the first 500 hits per category.
 - Decisions: each review body's official site; scanned PDFs return only a link.
 

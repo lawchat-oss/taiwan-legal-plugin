@@ -9,7 +9,7 @@
 - **Judicial Yuan judgment portal** (judgment.judicial.gov.tw) — full-text search, judgment retrieval and appeal history
 - **National Regulation Database** (law.moj.gov.tw) — 11,700+ statutes and regulations, official English translations, amendment and effective dates
 - **Constitutional Court records** (cons.judicial.gov.tw) — 釋字, 憲判字, Justices' opinions, citation graph, case-file filings and the pending docket
-- **Administrative interpretations (函釋)** — about 30 official systems (ministries, the Examination Yuan, Taipei City) and the Executive Yuan Gazette, plus TIPO examination guidelines
+- **Administrative interpretations (函釋)** — 45 official systems (ministries, the DGPA, the Consumer Protection Committee, the Examination Yuan, Taipei and New Taipei City) and the Executive Yuan Gazette, plus TIPO examination guidelines; discontinued letters are flagged where the site marks them
 - **Court resolutions and precedents** (legal.judicial.gov.tw) — Supreme Court resolutions, legal Q&A conferences, discontinued precedents, 院字 / 院解字, Grand Chamber rulings, curated judgments
 - **Appeal and quasi-judicial decisions** — Executive Yuan, ministry and local appeals; FTC, unfair labour practice, civil-service protection, FSC sanctions, Control Yuan, lawyer discipline
 - **Legislative materials** — legislative reasons and process, Legislative Yuan bills and gazette, draft regulations open for comment
@@ -44,14 +44,14 @@ For first-time use, run:
 
 to set defaults (court levels, date window, citation style).
 
-## Skills (v0.4)
+## Skills (v0.5)
 
 | Skill | Purpose |
 |---|---|
 | `/taiwan-legal:cold-start-interview` | One-time setup for research defaults (court, date window, citation style) |
 | `/taiwan-legal:judgment-search` | Search judgments / retrieve a specific case's full text by 字號 or URL, checking its appeal history before citing |
 | `/taiwan-legal:statute-lookup` | Look up regulations by name, article, keyword or in English; legislative reasons and records; amendment tracking; local regulations, treaties and exchange rules |
-| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (citation graph, case files, pending docket), 函釋 and examination guidelines, 決議 / 座談 / 判例 / curated judgments, appeal and quasi-judicial decisions |
+| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (citation graph, case files, pending docket), 函釋 and examination guidelines (validity checked before citing), 決議 / 座談 / 判例 / curated judgments, appeal and quasi-judicial decisions |
 | `/taiwan-legal:research-materials` | Legal scholarship (research reports, journal articles, research projects), judicial and MOJ statistics, sentencing statistics |
 
 ## Positioning
