@@ -6,13 +6,17 @@
 
 `taiwan-legal-plugin` is a [Claude Code](https://claude.com/claude-code) plugin marketplace that brings Taiwanese legal open-data sources into Anthropic's [Claude for Legal](https://github.com/anthropics/claude-for-legal) ecosystem:
 
-- **Judicial Yuan judgment portal** (judgment.judicial.gov.tw) — full-text search and judgment retrieval
-- **National Regulation Database** (law.moj.gov.tw) — 11,700+ statutes and regulations
-- **Constitutional Court records** (cons.judicial.gov.tw) — 釋字, 憲判字, Justices' opinions and citation graph
-- **Administrative interpretations (函釋)** — the official systems of the Ministry of Justice, Labor, Health and Welfare, Finance, Economic Affairs, Interior, the Public Construction Commission, and the Executive Yuan Gazette
-- **Court resolutions and precedents** (legal.judicial.gov.tw) — Supreme Court resolutions, legal Q&A conferences, discontinued precedents, 院字 / 院解字, Grand Chamber rulings
+- **Judicial Yuan judgment portal** (judgment.judicial.gov.tw) — full-text search, judgment retrieval and appeal history
+- **National Regulation Database** (law.moj.gov.tw) — 11,700+ statutes and regulations, official English translations, amendment and effective dates
+- **Constitutional Court records** (cons.judicial.gov.tw) — 釋字, 憲判字, Justices' opinions, citation graph, case-file filings and the pending docket
+- **Administrative interpretations (函釋)** — about 30 official systems (ministries, the Examination Yuan, Taipei City) and the Executive Yuan Gazette, plus TIPO examination guidelines
+- **Court resolutions and precedents** (legal.judicial.gov.tw) — Supreme Court resolutions, legal Q&A conferences, discontinued precedents, 院字 / 院解字, Grand Chamber rulings, curated judgments
+- **Appeal and quasi-judicial decisions** — Executive Yuan, ministry and local appeals; FTC, unfair labour practice, civil-service protection, FSC sanctions, Control Yuan, lawyer discipline
+- **Legislative materials** — legislative reasons and process, Legislative Yuan bills and gazette, draft regulations open for comment
+- **Research materials** — judicial and MOJ statistics, sentencing statistics, Judicial Yuan research reports, the NCL periodical index, open-access law journals
+- **Other legal texts** — local regulations, treaties and agreements, exchange rules
 
-The underlying MCP server is the open-source [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db), which exposes **fifteen tools**, wrapped in three skills — judgment search, statute lookup (with legislative reasons), and interpretation lookup (with appeal and Fair Trade Commission decisions).
+The underlying MCP server is the open-source [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db), which exposes **26 tools**, wrapped in four research skills — judgment search, statute lookup (with legislative materials and other legal texts), interpretation lookup (with constitutional case files, appeal and quasi-judicial decisions), and research materials (literature, statistics, sentencing).
 
 ## Install
 
@@ -40,14 +44,15 @@ For first-time use, run:
 
 to set defaults (court levels, date window, citation style).
 
-## Skills (v0.3)
+## Skills (v0.4)
 
 | Skill | Purpose |
 |---|---|
 | `/taiwan-legal:cold-start-interview` | One-time setup for research defaults (court, date window, citation style) |
-| `/taiwan-legal:judgment-search` | Search judgments / retrieve a specific case's full text by 字號 or URL |
-| `/taiwan-legal:statute-lookup` | Look up regulations by name, article, or keyword, and an article's legislative reasons |
-| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (with citation graph), ministries' 函釋, 決議 / 法律問題座談 / 判例, 訴願決定 / FTC decisions |
+| `/taiwan-legal:judgment-search` | Search judgments / retrieve a specific case's full text by 字號 or URL, checking its appeal history before citing |
+| `/taiwan-legal:statute-lookup` | Look up regulations by name, article, keyword or in English; legislative reasons and records; amendment tracking; local regulations, treaties and exchange rules |
+| `/taiwan-legal:interpretation-lookup` | 釋字 / 憲判字 (citation graph, case files, pending docket), 函釋 and examination guidelines, 決議 / 座談 / 判例 / curated judgments, appeal and quasi-judicial decisions |
+| `/taiwan-legal:research-materials` | Legal scholarship (research reports, journal articles, research projects), judicial and MOJ statistics, sentencing statistics |
 
 ## Positioning
 

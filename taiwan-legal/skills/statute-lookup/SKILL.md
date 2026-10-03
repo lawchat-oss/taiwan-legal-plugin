@@ -8,7 +8,9 @@ description: >
   to search regulations by keyword across the full corpus; or to identify
   which regulations govern a subject area; or to explain why an article
   reads as it does (立法理由 for each enactment and amendment, from the
-  Legislative Yuan law system). Returns structured article-level data
+  Legislative Yuan law system); to get the official English translation;
+  or to track which statutes were recently amended or are pending
+  amendment. Returns structured article-level data
   pulled live from the official source. This is an access layer —
   text comes unmodified from law.moj.gov.tw and reflects whatever version
   that source publishes.
@@ -33,7 +35,11 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - Specific regulation by name (e.g., "民法") → resolve via `get_pcode(law_name=...)`, then `query_regulation(pcode=...)`.
    - Keyword search across all regulations → `search_regulations(keyword=..., exclude_abolished=...)`.
    - Specific article (e.g., "民法 §184") → `query_regulation(law_name=..., article_no=...)`; add `include_history=true` for the article's amendment timeline.
-   - Why an article says what it says / purpose of an amendment (立法理由) → `get_legislative_history(law_name=..., article_no=...)`; it returns each enacted / amended text with the Legislative Yuan's reasons (reasons exist for amendments from 民國 59 on).
+   - Why an article says what it says / purpose of an amendment (立法理由) → `get_legislative_history(law_name=..., article_no=...)`; it returns each enacted / amended text with the Legislative Yuan's reasons (reasons exist for amendments from 民國 59 on), plus `latest_amendment_process` (一讀 → 委員會審查 → 二讀 → 三讀 with 公報 page references). For the debate itself, pass a step's `gazette_pdf_id` to `get_legislative_record`, or search the gazette with `search_legislative_records(keyword="勞動基準法第五十五條", kind="gazette")`.
+   - Official English translation → `query_regulation(law_name=..., article_no=..., language="en")`. The `note` warns when the translation predates the latest Chinese amendment; quote the Chinese text as authoritative.
+   - "What changed recently?" / compliance monitoring → `search_regulations(amended_since="2026-09-01", category="金融監督管理委員會")` (category matches the competent authority or subject, e.g. 勞動部, 稅務). Results are sorted newest first with `last_amended`.
+   - Local government regulations (自治條例 / 自治規則), treaties and agreements (incl. tax treaties), or stock / futures exchange rules — none of which are in the national statute list → `search_other_regulations(keyword=..., source=...)` (source = a city or county name, 「條約」, 「租稅協定」, 「證交所」, 「櫃買中心」, 「期交所」; give one keyword at a time), then `get_other_regulation(regulation_id=..., article_no=...)`.
+   - Pending amendments and draft regulations → `search_legislative_records(keyword=..., kind="bills")` (bills under review in the current Legislative Yuan term) or `kind="drafts"` (ministries' draft orders published for comment, with the comment deadline); read one with `get_legislative_record`.
 
 4. **Execute the MCP tool call.** Apply profile defaults when the user did not specify (e.g., `exclude_abolished=true` if set in the profile).
 
@@ -42,6 +48,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 6. **Present results.**
    - Search results: list regulation names with pcode, abolished status, and URL.
    - Article text: render verbatim with article number, body, and any subsection labels (項 / 款 / 目). Do not summarize without being asked.
+   - Always check `law.effective_date` / `law.effective_note`: a recently amended article may not be in force yet (e.g. 「自公布後六個月施行」, 「施行日期由行政院定之」). Say so next to the article.
 
 7. **Cite faithfully.** Every cited article must include 法規全名 + 第 X 條 + URL.
 
@@ -83,7 +90,7 @@ Followed by:
 
 - **Provide legal advice or interpretation.** This skill returns the text of statutes. Interpretation, application to facts, and operative legal conclusions are the user's (or their attorney's) responsibility.
 - **Compare statutory regimes across jurisdictions.** Taiwan-only; comparative work is out of scope.
-- **Reconstruct committee debates.** 立法理由 per article comes from the Legislative Yuan law system via `get_legislative_history`; committee minutes and floor debate (立法院公報) are out of scope.
+- **Summarize debates without quoting.** Committee minutes and floor debate come verbatim from 立法院公報 via `get_legislative_record`; attribute every quote to its speaker and gazette volume.
 - **Generate legal documents** (contracts, opinions, briefs). Out of scope.
 - **Operate on inputs that imply privileged communications.** If the user pastes content that looks like attorney work product or client communications, refuse and remind the user this skill only takes public statute queries.
 
@@ -97,7 +104,7 @@ If a user request falls into any of the above, deflect with: "I can show you the
 
 ## Tools used
 
-From the `taiwan-legal-db` MCP server (bundled with this plugin): `query_regulation`, `get_pcode`, `search_regulations`, `get_legislative_history`.
+From the `taiwan-legal-db` MCP server (bundled with this plugin): `query_regulation`, `get_pcode`, `search_regulations`, `get_legislative_history`, `search_legislative_records`, `get_legislative_record`, `search_other_regulations`, `get_other_regulation`.
 
 ## Versioning
 

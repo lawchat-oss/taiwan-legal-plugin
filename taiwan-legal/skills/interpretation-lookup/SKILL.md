@@ -1,20 +1,19 @@
 ---
 name: interpretation-lookup
 description: >
-  Look up Taiwanese interpretive authority other than court judgments and
-  statute text: Grand Justices interpretations (釋字) and Constitutional
-  Court judgments (憲判字) with their citation graph; ministries'
-  administrative interpretations (行政函釋, 解釋令) from the Ministry of
-  Justice, Labor, Health and Welfare, Finance, Economic Affairs, Interior,
-  the Public Construction Commission and the Executive Yuan Gazette; and
-  Supreme Court resolutions (決議), court legal Q&A conferences
-  (法律問題座談), discontinued precedents (停止適用判例) and Judicial Yuan
-  院字 / 院解字 interpretations; plus Executive Yuan administrative appeal
-  decisions (訴願決定) and Fair Trade Commission decisions (處分書). Use
-  when the user asks how an agency interprets a provision, whether a 決議
-  or 判例 on a point exists, what a 釋字 / 憲判字 held, or how appeals /
-  the FTC have decided a kind of case. Returns text pulled live from the official sources
-  (釋字 / 憲判字 from a bundled copy of the official site).
+  Look up Taiwanese interpretive authority other than judgments and
+  statute text: 釋字 / 憲判字 with their citation graph, case files and
+  pending docket; administrative interpretations (函釋, 解釋令) and
+  examination guidelines from about thirty official systems; Supreme
+  Court resolutions (決議), legal Q&A conferences, discontinued
+  precedents, 院字 / 院解字 and curated judgments with 裁判要旨; and
+  decisions of administrative-appeal and quasi-judicial bodies (訴願,
+  FTC, procurement complaints, labour adjudication, civil-service
+  protection, FSC sanctions, Control Yuan, lawyer discipline). Use when
+  the user asks how an agency interprets a provision, whether a 決議 or
+  判例 exists, what a 釋字 / 憲判字 held or which later rulings cited it,
+  or how a review body decided a kind of case. Text is pulled live from
+  official sources (釋字 / 憲判字 from a bundled copy).
 argument-hint: "[keyword | agency | 字號 | 釋字 number]"
 ---
 
@@ -34,10 +33,12 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 
 3. **Identify intent and pick the tool.**
    - 釋字 / 憲判字 by number → `get_interpretation(case_id=...)`; add `reasoning_keyword=` or `include_reasoning=true` for the reasoning, `include_opinions=true` for Justices' opinions.
-   - Constitutional topic → `search_interpretations(keyword=...)`; what a ruling cited → `get_citations(case_id=...)`.
-   - How an agency reads a provision / 函釋 on a topic → `search_agency_interpretations(keyword=..., agency=...)`. Leave `agency` empty to search every source; use the agency's name (e.g. 勞動部, 財政部, 金管會) when the user names one. A known 字號 → `doc_number=...`. Then `get_agency_interpretation(interpretation_id=...)` for the full text.
+   - Constitutional topic → `search_interpretations(keyword=...)`; what a ruling cited → `get_citations(case_id=...)`; which later 釋字 / 憲判字 cited it → `get_citations(case_id=..., direction="cited_by")`.
+   - Case-file materials (聲請書, 答辯書, 鑑定意見, 法庭之友意見書, 言詞辯論筆錄, 爭點題綱) → `get_constitutional_case_file(case_id=...)`, optionally with `keyword=` to find which filings discuss a point; read one with `document_id=`. Cases not yet decided → `search_constitutional_docket(keyword=..., status="pending" | "hearing" | "amicus")`.
+   - How an agency reads a provision / 函釋 on a topic → `search_agency_interpretations(keyword=..., agency=...)`. Leave `agency` empty to search every source; use the agency's name (e.g. 勞動部, 財政部, 金管會, 銓敘部, 地政司, 臺北市) when the user names one. A known 字號 → `doc_number=...`. Then `get_agency_interpretation(interpretation_id=...)` for the full text. Patent / trademark examination guidelines: `agency="智慧局"` with a chapter term such as 專利要件 or 混淆誤認.
    - 決議 / 法律問題座談 / 判例 / 院字・院解字 / 大法庭 → `search_precedents(keyword=..., category=...)`, then `get_precedent(precedent_id=...)`.
-   - Executive Yuan 訴願決定 or Fair Trade Commission 處分書 → `search_administrative_decisions(keyword=..., source="訴願" | "公平會")`, then `get_administrative_decision(decision_id=...)`. Appeal cases filed up to 民國 108 are not listed (the official site does not mask names).
+   - Curated judgments with 裁判要旨 → `search_precedents(keyword=..., category="精選裁判")`; only those a court designated 具參考價值 / 足資討論 → `category="具參考價值裁判"` (items carry `reference_value`).
+   - Administrative appeal and quasi-judicial decisions → `search_administrative_decisions(keyword=..., source=...)`, then `get_administrative_decision(decision_id=...)`. Without `source` it searches 行政院訴願, 公平會, 不當勞動行為裁決, 保訓會, and 金管會裁罰. Name the source for 工程會採購申訴審議判斷 (`source="採購申訴"`; no keyword search upstream — use the case number such as 訴1130123 or a year), 監察院 (slow), 律師懲戒 (needs a precise keyword), or a ministry's / local government's 訴願 (e.g. `source="臺北市"`, or `source="訴願"` for all of them). Executive Yuan appeal cases filed up to 民國 108 are not listed (the official site does not mask names).
    - Years are ROC years (民國; 2026 = 115).
 
 4. **Execute the MCP tool call(s).** Search without a date range unless the user asks for one.
@@ -78,8 +79,9 @@ Followed by:
 ## Source and limits
 
 - 釋字 / 憲判字: bundled copy of cons.judicial.gov.tw; rulings issued after the bundle are fetched live with links to their opinion PDFs.
-- 函釋: queried live from each agency's own system (mojlaw.moj.gov.tw, laws.mol.gov.tw, mohwlaw.mohw.gov.tw, planpe.pcc.gov.tw, ttc.mof.gov.tw, gcis.nat.gov.tw, www.tipo.gov.tw, www.ris.gov.tw, www.nlma.gov.tw), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette.
-- 決議 / 座談 / 判例 / 院字・院解字: legal.judicial.gov.tw (FINT); at most the first 500 hits per category.
+- 函釋: queried live from each agency's own system (about 30, listed in the server's SOURCES.md), the Judicial Yuan's FINT database, and gazette.nat.gov.tw. Agencies without their own system are covered only through interpretive rules published in the Gazette. Some agencies (金管會, 教育部 …) file interpretations among their administrative rules, so results mix in ordinary rules.
+- 決議 / 座談 / 判例 / 院字・院解字 / 精選裁判: legal.judicial.gov.tw (FINT); at most the first 500 hits per category.
+- Decisions: each review body's official site; scanned PDFs return only a link.
 
 ## What this skill does NOT do
 
@@ -98,7 +100,7 @@ If a user request falls into any of the above, deflect with: "I can show you how
 
 ## Tools used
 
-From the `taiwan-legal-db` MCP server (bundled with this plugin): `get_interpretation`, `search_interpretations`, `get_citations`, `search_agency_interpretations`, `get_agency_interpretation`, `search_precedents`, `get_precedent`, `search_administrative_decisions`, `get_administrative_decision`.
+From the `taiwan-legal-db` MCP server (bundled with this plugin): `get_interpretation`, `search_interpretations`, `get_citations`, `search_constitutional_docket`, `get_constitutional_case_file`, `search_agency_interpretations`, `get_agency_interpretation`, `search_precedents`, `get_precedent`, `search_administrative_decisions`, `get_administrative_decision`.
 
 ## Versioning
 

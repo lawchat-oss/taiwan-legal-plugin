@@ -6,13 +6,17 @@
 
 `taiwan-legal-plugin` 是 [Claude Code](https://claude.com/claude-code) 的 plugin marketplace，把台灣公開法律資料來源接上 Anthropic 的 [Claude for Legal](https://github.com/anthropics/claude-for-legal) 生態：
 
-- **司法院裁判書系統**（judgment.judicial.gov.tw）— 全文搜尋與裁判全文取得
-- **全國法規資料庫**（law.moj.gov.tw）— 11,700+ 部法規條文
-- **憲法法庭裁判 / 大法官解釋**（cons.judicial.gov.tw）— 釋字、憲判字、大法官意見書與引用關係
-- **行政機關函釋** — 法務部、勞動部、衛福部、工程會、財政部、經濟部、內政部等官方系統與行政院公報
-- **判解**（legal.judicial.gov.tw）— 最高法院決議、法律問題座談、停止適用判例、院字／院解字、大法庭
+- **司法院裁判書系統**（judgment.judicial.gov.tw）— 全文搜尋、裁判全文與歷審清單
+- **全國法規資料庫**（law.moj.gov.tw）— 11,700+ 部法規條文、官方英譯、最新公布日與施行日註記
+- **憲法法庭**（cons.judicial.gov.tw）— 釋字、憲判字、大法官意見書、引用關係，以及卷內書狀與受理中案件
+- **行政機關函釋** — 各部會、考試院系統、臺北市等約 30 個官方來源與行政院公報，含智慧局審查基準
+- **判解**（legal.judicial.gov.tw）— 最高法院決議、法律問題座談、停止適用判例、院字／院解字、大法庭、精選裁判
+- **訴願與準司法決定** — 行政院、各部會與縣市政府訴願，公平會、不當勞動行為裁決、保訓會、金管會裁罰、監察院、律師懲戒
+- **立法資料** — 立法理由、立法歷程、立法院議案與公報、法規命令草案預告
+- **研究資料** — 司法統計、法務統計、量刑統計、司法研究年報、國圖期刊索引、開放取用法學期刊
+- **其他規範** — 地方自治法規、條約協定、交易所規章
 
-底層由開源 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) MCP server 提供 **15 個工具**，以三個 skill 包裝：裁判書搜尋、法規查詢（含立法理由）、解釋與函釋查詢（含訴願決定、公平會處分書）。
+底層由開源 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) MCP server 提供 **26 個工具**，以四個查詢 skill 包裝：裁判書搜尋、法規查詢（含立法資料與其他規範）、解釋與函釋查詢（含憲法法庭卷宗、訴願與準司法決定）、研究資料（文獻、統計、量刑）。
 
 ## 安裝
 
@@ -40,14 +44,15 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 
 設定法院層級、日期範圍、引用格式等預設值。
 
-## 提供的 skills（v0.3）
+## 提供的 skills（v0.4）
 
 | Skill | 用途 |
 |---|---|
 | `/taiwan-legal:cold-start-interview` | 一次性設定研究預設值（法院、日期範圍、引用格式） |
-| `/taiwan-legal:judgment-search` | 搜尋裁判書 / 以字號或 URL 取得單一裁判全文 |
-| `/taiwan-legal:statute-lookup` | 法規查詢（依名稱、條號、關鍵字）與立法理由 |
-| `/taiwan-legal:interpretation-lookup` | 大法官解釋／憲判字（含引用關係）、各部會行政函釋、決議／法律問題座談／判例、訴願決定／公平會處分書 |
+| `/taiwan-legal:judgment-search` | 搜尋裁判書 / 以字號或 URL 取得單一裁判全文，引用前檢查歷審 |
+| `/taiwan-legal:statute-lookup` | 法規查詢（依名稱、條號、關鍵字、英譯）、立法理由與立法紀錄、修法追蹤、地方法規／條約／交易所規章 |
+| `/taiwan-legal:interpretation-lookup` | 大法官解釋／憲判字（含引用關係、卷宗、受理中案件）、行政函釋與審查基準、決議／座談／判例／精選裁判、訴願與準司法決定 |
+| `/taiwan-legal:research-materials` | 法學文獻（司法研究年報、期刊論文、研究計畫）、司法與法務統計、量刑統計 |
 
 ## 定位
 
