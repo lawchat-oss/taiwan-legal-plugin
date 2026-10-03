@@ -32,13 +32,13 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 2. **Scope check.** Confirm the request is a lookup or research query, not an advice request (see "What this skill does NOT do" below).
 
 3. **Identify intent.**
-   - Specific regulation by name (e.g., "民法") → resolve via `get_pcode(law_name=...)`, then `query_regulation(pcode=...)`.
+   - A regulation by name without an article (e.g., "民法") → `query_regulation(law_name=...)` returns its chapter outline (`structure`) and article range, not the text; then request the articles the question needs. Abbreviations such as 勞基法 resolve automatically; use `get_pcode` only when the user wants the code itself.
    - Keyword search across all regulations → `search_regulations(keyword=..., exclude_abolished=...)`.
-   - Specific article (e.g., "民法 §184") → `query_regulation(law_name=..., article_no=...)`; add `include_history=true` for the article's amendment timeline.
+   - Specific articles (e.g., "民法 §184") → `query_regulation(law_name=..., article_no=...)`. `article_no` takes a single article (`184`, `247-1`), a range (`184~198`) or a list (`184,185,247-1`), mixed freely, up to 50 per call; `has_more` says where to continue and `missing` lists requested articles that do not exist. Add `include_history=true` with a single article for its amendment timeline.
    - Why an article says what it says / purpose of an amendment (立法理由) → `get_legislative_history(law_name=..., article_no=...)`; it returns each enacted / amended text with the Legislative Yuan's reasons (reasons exist for amendments from 民國 59 on), plus `latest_amendment_process` (一讀 → 委員會審查 → 二讀 → 三讀 with 公報 page references). For the debate itself, pass a step's `gazette_pdf_id` to `get_legislative_record`, or search the gazette with `search_legislative_records(keyword="勞動基準法第五十五條", kind="gazette")`.
    - Official English translation → `query_regulation(law_name=..., article_no=..., language="en")`. The `note` warns when the translation predates the latest Chinese amendment; quote the Chinese text as authoritative.
    - "What changed recently?" / compliance monitoring → `search_regulations(amended_since="2026-09-01", category="金融監督管理委員會")` (category matches the competent authority or subject, e.g. 勞動部, 稅務). Results are sorted newest first with `last_amended`.
-   - Local government regulations (自治條例 / 自治規則), treaties and agreements (incl. tax treaties), or stock / futures exchange rules — none of which are in the national statute list → `search_other_regulations(keyword=..., source=...)` (source = a city or county name, 「條約」, 「租稅協定」, 「證交所」, 「櫃買中心」, 「期交所」; give one keyword at a time), then `get_other_regulation(regulation_id=..., article_no=...)`.
+   - Local government regulations (自治條例 / 自治規則), treaties and agreements (incl. tax treaties), or stock / futures exchange rules — none of which are in the national statute list → `search_other_regulations(keyword=..., source=...)` (source = a city or county name, 「條約」, 「租稅協定」, 「證交所」, 「櫃買中心」, 「期交所」; give one keyword at a time), then `get_other_regulation(regulation_id=..., article_no=...)` (same article forms; without one, article-structured texts return only their article range).
    - Pending amendments and draft regulations → `search_legislative_records(keyword=..., kind="bills")` (bills under review in the current Legislative Yuan term) or `kind="drafts"` (ministries' draft orders published for comment, with the comment deadline); read one with `get_legislative_record`.
 
 4. **Execute the MCP tool call.** Apply profile defaults when the user did not specify (e.g., `exclude_abolished=true` if set in the profile).
@@ -57,11 +57,10 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
 **Input** (user):
 > 民法 184 條 全文 + 引用
 
-**Plan**: resolve 民法 → pcode B0000001, then query article 184.
+**Plan**: query article 184 of 民法 directly; the law name resolves to its code automatically.
 
 **Tool calls**:
-1. `get_pcode(law_name="民法")` → `B0000001`
-2. `query_regulation(pcode="B0000001", article_no="184")`
+1. `query_regulation(law_name="民法", article_no="184")`
 
 **Expected output shape**:
 ```
