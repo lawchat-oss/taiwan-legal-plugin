@@ -9,10 +9,10 @@
 - **司法院裁判書系統**（judgment.judicial.gov.tw）— 全文搜尋、裁判全文與歷審清單
 - **全國法規資料庫**（law.moj.gov.tw）— 11,700+ 部法規條文、官方英譯、最新公布日與施行日註記
 - **憲法法庭**（cons.judicial.gov.tw）— 釋字、憲判字、大法官意見書、引用關係，以及卷內書狀與受理中案件
-- **行政機關函釋** — 各部會、人事總處、消保處、考試院系統、臺北市、新北市等 45 個官方來源與行政院公報，含智慧局審查基準；標出官網的「停止適用」標示
+- **行政機關函釋** — 各部會、人事總處、消保處、考試院系統、臺北市、新北市等 51 個官方來源與行政院公報，含智慧局審查基準；標出官網的「停止適用」標示
 - **判解**（legal.judicial.gov.tw）— 最高法院決議、法律問題座談、停止適用判例、院字／院解字、大法庭、精選裁判
-- **訴願與準司法決定** — 行政院、各部會與縣市政府訴願，公平會、不當勞動行為裁決、保訓會、金管會裁罰、監察院、律師懲戒
-- **立法資料** — 立法理由、立法歷程、立法院議案與公報、法規命令草案預告
+- **訴願與準司法決定** — 行政院、各部會與縣市政府訴願，公平會、不當勞動行為裁決、保訓會、金管會裁罰、監察院、律師懲戒、醫事懲戒
+- **立法資料** — 立法理由、立法歷程、立法院議案與公報、法規命令與法律草案預告
 - **研究資料** — 司法統計、法務統計、量刑統計、司法研究年報、國圖期刊索引、開放取用法學期刊
 - **其他規範** — 地方自治法規、條約協定、交易所規章
 
@@ -56,7 +56,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 
 ## 定位
 
-這是台灣公開法律資料的 access layer，把原始來源以 MCP 形式接到 Claude Code。資料由司法院、法務部及其他發布機關依其開放資料政策維護；本 plugin **不修改原始內容**。為提升效能與支援離線查詢，底層 MCP server 包含少量公開資料的本地快取（如司法院釋字理由書），皆直接取自原始來源（cons.judicial.gov.tw、judgment.judicial.gov.tw、law.moj.gov.tw）並於回傳結果中標註出處 URL。原始資料依《著作權法》§9(1)(1) 不受著作權保護（屬公文／法令）；本 repo 對該等資料的結構化整理以 CC0 1.0 釋出（見 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) 的 `DATA_LICENSE`）。
+這是台灣公開法律資料的 access layer，把原始來源以 MCP 形式接到 Claude Code。資料由司法院、法務部及其他發布機關依其開放資料政策維護；本 plugin **不修改原始內容**。為提升效能與支援離線查詢，底層 MCP server 包含少量公開資料的本地快取（如司法院釋字理由書），皆直接取自原始來源（cons.judicial.gov.tw、judgment.judicial.gov.tw、law.moj.gov.tw）並於回傳結果中標註出處 URL。裁判、法規、函釋、決定書等公文依《著作權法》第 9 條不受著作權保護，憲法法庭資料的結構化整理以 CC0 1.0 釋出（見 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) 的 `DATA_LICENSE`）；期刊論文、研究報告與交易所規章不在此列，請依各來源的使用規定引用。
 
 ## 設計準則
 
@@ -64,9 +64,13 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 - **不取代律師**：所有 skill 都在輸出尾端標註「不構成法律意見」，把實際法律決定交回給有執照的律師。
 - **資料層／存取層分離**：資料屬於原始發布單位；我們做的是工具與整合。
 
+## 免責聲明
+
+本 plugin 啟動的 MCP server 是爬蟲：每次查詢時，從使用者自己的電腦即時向各官網取得資料；部分網站的 robots.txt 不允許爬蟲，或須通過 JavaScript 檢查、驗證碼，server 只為使用者觸發的單次查詢處理，不批次抓取、不建立資料庫。使用者須自行遵守各網站的使用規定與相關法令（包括著作權法、個人資料保護法）。本工具非官方、按現狀提供，查詢結果不構成法律意見，引用前請向官方來源核對。完整條款見 `mcp-taiwan-legal-db` 的[免責聲明](https://github.com/lawchat-oss/mcp-taiwan-legal-db#免責聲明)；網站管理者如有疑慮，請在 [GitHub Issues](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) 提出或來信 opensource@lawchat.com.tw。
+
 ## 授權
 
-本 repo 程式碼以 MIT License 釋出。資料來源由各原始發布單位（司法院、法務部及其他發布機關）依其開放資料政策提供。
+本 repo 程式碼以 MIT License 釋出。資料屬於各原始發布單位（司法院、法務部及其他發布機關）。
 
 ---
 

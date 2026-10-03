@@ -4,8 +4,8 @@ description: >
   One-time onboarding that captures the user's research preferences for the
   taiwan-legal plugin — preferred court levels and divisions to focus on,
   default date windows, citation style, abolished-regulation handling,
-  and any standing subject scope. Writes a practice profile that
-  judgment-search and statute-lookup read for their defaults. Run once
+  and any standing subject scope. Writes a practice profile that the
+  plugin's other skills read for their defaults. Run once
   when first installing the plugin, or any time the user wants to update
   defaults. Idempotent — safe to re-run.
 argument-hint: "(no args — fully interactive)"
@@ -17,7 +17,7 @@ Captures the user's research defaults and writes them to a practice profile.
 
 ## Audience
 
-The same audience as `judgment-search` and `statute-lookup` — Taiwan-legal researchers, attorneys, paralegals, law students. This is configuration only; no legal interpretation occurs here.
+The same audience as the plugin's lookup skills — Taiwan-legal researchers, attorneys, paralegals, law students. This is configuration only; no legal interpretation occurs here.
 
 ## Output file
 
@@ -103,7 +103,7 @@ Ask the user the following, one at a time. After collecting answers, write the p
 ```
 
 Followed by:
-> Profile written. /taiwan-legal:judgment-search and /taiwan-legal:statute-lookup will use these defaults.
+> Profile written. The taiwan-legal lookup skills will use these defaults.
 
 ## Confidence bands
 
