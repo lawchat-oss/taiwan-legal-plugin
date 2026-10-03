@@ -31,6 +31,7 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - "search" / keyword / topic → use `search_judgments(keyword, court, case_type, year_from, year_to, ...)` from the `taiwan-legal-db` MCP server. Years are ROC years (民國; 2026 = 115), so a date window like "last 5 years" becomes `year_from=111, year_to=115`.
    - 字號 given / "read full text" → use `get_judgment(jid=...)`.
    - URL given → use `get_judgment(url=...)`.
+   - "Which later judgments cite this case / 釋字?" → `search_judgments(keyword="<full 字號>")`, e.g. `keyword="108年度台上大字第2680號"` or `keyword="釋字第748號"`; the hits are judgments whose text mentions that 字號.
    - Ambiguous → ask which the user wants.
 
 4. **Execute the MCP tool call** with profile defaults applied only when the user did not specify (e.g., default court level, default date range). Explicit user-provided values override defaults.
@@ -41,7 +42,9 @@ Legal researchers, attorneys, paralegals, in-house counsel, and law students wor
    - Search results: tabular — case ID (字號), court, division (民/刑/行), date, cause (案由), URL.
    - Full text: render the structured fields (主文, 事實, 理由, 引用法條) without summarization unless the user asks. For excerpts, quote verbatim with the citation attached.
 
-7. **Cite faithfully.** Every claim attributed to a judgment must include 字號 + 法院 + 日期 + URL. Do not paraphrase legal holdings without quoting the operative text.
+7. **Check the appeal chain before citing.** `get_judgment` returns `history` (every instance of the same case, oldest first) and `history_note`. If a higher court decided later, say so and offer to read it — the judgment may have been reversed or remanded. If `pending_supreme_court` is true, the case is still on appeal. A chain that ends here does not prove finality (the appeal period may still be running); say "no later decision published" rather than "final".
+
+8. **Cite faithfully.** Every claim attributed to a judgment must include 字號 + 法院 + 日期 + URL. Do not paraphrase legal holdings without quoting the operative text.
 
 ## Worked example
 
@@ -66,7 +69,7 @@ Followed by:
 
 ## Confidence bands
 
-- **High**: exact case ID supplied and retrieved cleanly; specific keyword search returning ≥1 result on the requested court/date range.
+- **High**: exact case ID supplied and retrieved cleanly, with its appeal chain checked; specific keyword search returning ≥1 result on the requested court/date range.
 - **Medium**: keyword search returning broad results that may require user filtering; case ID retrieved but with parsing warnings.
 - **Low**: zero results, WAF / network failure after retry, or ambiguous query that could match multiple interpretations. **Do not synthesize** — surface the gap to the user and ask how to refine.
 
@@ -93,7 +96,7 @@ If a user request falls into any of the above, deflect with: "I can show you wha
 
 ## Tools used
 
-From the `taiwan-legal-db` MCP server (bundled with this plugin): `search_judgments`, `get_judgment`.
+From the `taiwan-legal-db` MCP server (bundled with this plugin): `search_judgments`, `get_judgment`. For curated judgments with 裁判要旨 (具參考價值裁判) see `/taiwan-legal:interpretation-lookup`.
 
 ## Versioning
 

@@ -1,6 +1,6 @@
 {
   "name": "taiwan-legal-plugin",
-  "description": "Taiwan legal open-data plugins for Claude Code — court judgments, the National Regulation Database, Constitutional Court rulings, administrative interpretations, court resolutions, appeal decisions and legislative reasons, via the open-source mcp-taiwan-legal-db MCP server.",
+  "description": "Taiwan legal open-data plugins for Claude Code — court judgments, the National Regulation Database, Constitutional Court rulings and case files, administrative interpretations, court resolutions, appeal and quasi-judicial decisions, legislative records, statistics and legal scholarship, via the open-source mcp-taiwan-legal-db MCP server.",
   "owner": {
     "name": "LawChat OSS"
   },
@@ -8,7 +8,7 @@
     {
       "name": "taiwan-legal",
       "source": "./taiwan-legal",
-      "description": "Access layer for Taiwan legal open data: court judgments (judicial.gov.tw), the National Regulation Database (law.moj.gov.tw), Constitutional Court rulings, ministries' administrative interpretations (函釋), Supreme Court resolutions / precedents, administrative appeal and Fair Trade Commission decisions, and legislative reasons (立法理由). Bundles the open-source mcp-taiwan-legal-db MCP server. Use when you need to search and retrieve Taiwanese court rulings, statutory text, or interpretive authority.",
+      "description": "Access layer for Taiwan legal open data: court judgments with appeal history (judicial.gov.tw), the National Regulation Database (law.moj.gov.tw) with English translations, Constitutional Court rulings and case files, administrative interpretations (函釋) from about 30 official systems, Supreme Court resolutions / precedents / curated judgments, appeal and quasi-judicial decisions, legislative reasons and records, official statistics, sentencing statistics, legal scholarship, local regulations, treaties and exchange rules. Bundles the open-source mcp-taiwan-legal-db MCP server. Use when you need to search and retrieve Taiwanese court rulings, statutory text, interpretive authority, or legal research materials.",
       "author": {
         "name": "LawChat OSS"
       }
