@@ -4,7 +4,7 @@ Access layer for Taiwan legal open data. See the top-level [README](../README.md
 
 ## Bundled MCP server
 
-This plugin bundles a stdio MCP server declaration in `.mcp.json` that launches the `mcp-taiwan-legal-db` package (with its `[captcha]` extra) via `uvx`, pinned to an exact server version that is bumped with each plugin release (fetched from PyPI on first use; Chromium is installed automatically on the first query that needs a browser). The only prerequisite is [uv](https://docs.astral.sh/uv/).
+This plugin bundles a stdio MCP server declaration in `.mcp.json` that launches the `mcp-taiwan-legal-db` package via `uvx`, pinned to an exact server version that is bumped with each plugin release (fetched from PyPI on first use; Chromium is installed automatically the first time the server starts). Sources that require passing a captcha are off by default and this plugin does not enable them. The only prerequisite is [uv](https://docs.astral.sh/uv/).
 
 Source: [github.com/lawchat-oss/mcp-taiwan-legal-db](https://github.com/lawchat-oss/mcp-taiwan-legal-db) (MIT, CI on Python 3.10/3.11/3.12).
 

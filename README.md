@@ -34,7 +34,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 /plugin install taiwan-legal@taiwan-legal-plugin
 ```
 
-安裝後重啟 Claude Code。底層 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) 會在**首次查詢時由 `uvx` 自動從 PyPI 取得並執行**（版本固定，隨外掛更新）；第一筆需要瀏覽器的裁判書查詢會**自動安裝 Chromium**（約 150MB，僅一次）。無需手動 `pip install` 或 `playwright install`。
+安裝後重啟 Claude Code。底層 [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) 會在 **Claude Code 啟動時由 `uvx` 自動從 PyPI 取得並執行**（版本固定，隨外掛更新）；伺服器第一次啟動時會在背景**自動安裝 Chromium**（約 150MB，僅一次），用來通過司法院裁判書系統的瀏覽器檢查。無需手動 `pip install` 或 `playwright install`。
 
 第一次使用建議先跑：
 
@@ -66,7 +66,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1|iex"  # Windows
 
 ## 免責聲明
 
-本 plugin 啟動的 MCP server 是爬蟲：每次查詢時，從使用者自己的電腦即時向各官網取得資料；部分網站的 robots.txt 不允許爬蟲，或須通過 JavaScript 檢查、驗證碼，server 只為使用者觸發的單次查詢處理，不批次抓取、不建立資料庫。使用者須自行遵守各網站的使用規定與相關法令（包括著作權法、個人資料保護法）。本工具非官方、按現狀提供，查詢結果不構成法律意見，引用前請向官方來源核對。完整條款見 `mcp-taiwan-legal-db` 的[免責聲明](https://github.com/lawchat-oss/mcp-taiwan-legal-db#免責聲明)；網站管理者如有疑慮，請在 [GitHub Issues](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) 提出或來信 opensource@lawchat.com.tw。
+本 plugin 啟動的 MCP server 是爬蟲：每次查詢時，從使用者自己的電腦即時向各官網取得資料；部分網站的 robots.txt 不允許爬蟲，或須通過 JavaScript 檢查，server 只為使用者觸發的單次查詢處理，不批次抓取、不建立資料庫。需要通過官網驗證碼的來源（內政部、衛福部、勞動部訴願與醫事懲戒）預設不查詢，本 plugin 也不啟用。使用者須自行遵守各網站的使用規定與相關法令（包括著作權法、個人資料保護法）。本工具非官方、按現狀提供，查詢結果不構成法律意見，引用前請向官方來源核對。完整條款見 `mcp-taiwan-legal-db` 的[免責聲明](https://github.com/lawchat-oss/mcp-taiwan-legal-db#免責聲明)；網站管理者如有疑慮，請在 [GitHub Issues](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) 提出或來信 opensource@lawchat.com.tw。
 
 ## 授權
 

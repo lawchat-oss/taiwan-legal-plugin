@@ -23,7 +23,7 @@ Author self-scan against the 10 categories in the QA spec (override/ignore instr
 | Direction | What | Notes |
 |---|---|---|
 | Upstream | `~/.claude/plugins/config/taiwan-legal-plugin/taiwan-legal/CLAUDE.md` | Practice profile written by `cold-start-interview`; read by the four lookup skills. Skills handle absence by offering to run cold-start or to proceed without defaults. |
-| Upstream | `taiwan-legal-db` MCP server (bundled via `.mcp.json`) | stdio transport; launched with `uvx --from mcp-taiwan-legal-db[captcha]==<pinned version> mcp-taiwan-legal-db` (fetched from PyPI on first use). Requires `uv` on PATH. Chromium is installed automatically on the first query that needs a browser. |
+| Upstream | `taiwan-legal-db` MCP server (bundled via `.mcp.json`) | stdio transport; launched with `uvx --from mcp-taiwan-legal-db==<pinned version> mcp-taiwan-legal-db` (fetched from PyPI on first use). Requires `uv` on PATH. Chromium is installed automatically the first time the server starts. |
 | Upstream (via the server) | Official Taiwan legal sources | The server scrapes official sites live, on the user's machine, one user-initiated query at a time — more than 120 government and public-institution domains, listed in the server's `SOURCES.md`. Some sites disallow crawlers in robots.txt; for some the server completes JavaScript / Cloudflare checks in a local browser or reads image captchas with local OCR. No login, no privileged access, no bulk collection. See the server's Disclaimer. |
 | Downstream | `cold-start-interview` writes profile; no other writes | No skill writes outside `~/.claude/plugins/config/taiwan-legal-plugin/taiwan-legal/`. |
 | Auto-triggers | none | No hooks; no agents; no scheduled invocations. |
