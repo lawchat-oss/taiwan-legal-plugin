@@ -34,7 +34,7 @@ In Claude Code:
 /plugin install taiwan-legal@taiwan-legal-plugin
 ```
 
-Restart Claude Code. The underlying [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) is **fetched from PyPI and run automatically by `uvx` on first query** (pinned version, bumped with each plugin release); the first judgment search that needs a browser **auto-installs Chromium** (~150 MB, one time). No manual `pip install` or `playwright install` required.
+Restart Claude Code. The underlying [`mcp-taiwan-legal-db`](https://github.com/lawchat-oss/mcp-taiwan-legal-db) is **fetched from PyPI and run automatically by `uvx` when Claude Code starts** (pinned version, bumped with each plugin release); on its first start the server **auto-installs Chromium** in the background (~150 MB, one time) to pass the Judicial Yuan judgment site's browser check. No manual `pip install` or `playwright install` required.
 
 For first-time use, run:
 
@@ -66,7 +66,7 @@ This is an access layer that brings Taiwan's public legal data into Claude Code 
 
 ## Disclaimer
 
-The MCP server this plugin launches is a scraper: each query fetches data live from the official sites, from the user's own machine. Some of those sites disallow crawlers in robots.txt or present JavaScript checks or captchas; the server handles them only for single, user-initiated queries, never scrapes in bulk and keeps no database. You are responsible for following each site's terms and the applicable law (including Taiwan's Copyright Act and Personal Data Protection Act). The tool is unofficial and provided as is; results are not legal advice, so verify against the official source before citing. Full terms are in the `mcp-taiwan-legal-db` [Disclaimer](https://github.com/lawchat-oss/mcp-taiwan-legal-db/blob/main/README.en.md#disclaimer); site operators with concerns can open a [GitHub issue](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) or email opensource@lawchat.com.tw.
+The MCP server this plugin launches is a scraper: each query fetches data live from the official sites, from the user's own machine. Some of those sites disallow crawlers in robots.txt or present JavaScript checks; the server handles them only for single, user-initiated queries, never scrapes in bulk and keeps no database. Sources that require passing the official site's captcha (Interior, Health and Welfare and Labor appeals and the medical discipline notices) are off by default, and this plugin does not enable them. You are responsible for following each site's terms and the applicable law (including Taiwan's Copyright Act and Personal Data Protection Act). The tool is unofficial and provided as is; results are not legal advice, so verify against the official source before citing. Full terms are in the `mcp-taiwan-legal-db` [Disclaimer](https://github.com/lawchat-oss/mcp-taiwan-legal-db/blob/main/README.en.md#disclaimer); site operators with concerns can open a [GitHub issue](https://github.com/lawchat-oss/mcp-taiwan-legal-db/issues) or email opensource@lawchat.com.tw.
 
 ## License
 
